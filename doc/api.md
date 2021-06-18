@@ -7,6 +7,7 @@
 ### Получить/обновить информацию по пользователю
 
 GET /api/v1/patients/me?snils={snils} \
+GET /api/v1/patients?snils={snils} \
 POST /api/v1/patients/update-info
 
 ```json
@@ -34,7 +35,7 @@ POST /api/v1/diary/measurements/add
 {
   "patient-id": "1",
   "measure": {
-    "timestamp": "yyyy-MM-dd'T'HH:mm ZZZZ",
+    "timestamp": "yyyy-MM-dd'T'HH:mm:ss",
     "lower": 60,
     "upper": 120,
     "pulse": 55,
@@ -54,8 +55,7 @@ GET /api/v1/diary/{patient-id}?from={date-from}&to={date-to}
 {
   "measures": [
     {
-      "id": "32",
-      "timestamp": "yyyy-MM-dd'T'HH:mm ZZZZ",
+      "timestamp": "yyyy-MM-dd'T'HH:mm:ss",
       "lower": 60,
       "upper": 120,
       "pulse": 55,
@@ -65,8 +65,7 @@ GET /api/v1/diary/{patient-id}?from={date-from}&to={date-to}
       }
     },
     {
-      "id": "34",
-      "timestamp": "yyyy-MM-dd'T'HH:mm ZZZZ",
+      "timestamp": "yyyy-MM-dd'T'HH:mm:ss",
       "lower": 60,
       "upper": 135,
       "pulse": 55
