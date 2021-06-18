@@ -1,10 +1,11 @@
 package medpod.blood.service
 
-import medpod.blood.repositories.PatientRepository
 import medpod.blood.controllers.model.RegisterPatientCommand
 import medpod.blood.controllers.model.UpdatePatientCommand
 import medpod.blood.exceptions.NotFoundException
+import medpod.blood.exceptions.PatientNotFoundException
 import medpod.blood.model.Patient
+import medpod.blood.repositories.PatientRepository
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 
@@ -16,19 +17,22 @@ class PatientsService(
     fun register(registerPatientCommand: RegisterPatientCommand): String =
         patientRepository.save(Patient(registerPatientCommand.snils)).id!!
 
-    fun findBySnils(snils: String): Patient {
-        TODO("Not yet implemented")
-    }
+    fun findBySnils(snils: String): Patient =
+        patientRepository.findBySnils(snils)
+            ?: throw PatientNotFoundException()
 
     fun findById(id: String): Patient =
         patientRepository.findByIdOrNull(id)
-            ?: throw NotFoundException("Пациент не найден")
+            ?: throw PatientNotFoundException()
 
     fun update(updatePatient: UpdatePatientCommand) {
-        TODO("Not yet implemented")
+        patientRepository.findById(updatePatient.patient.id!!)
+            .let {
+                patientRepository.save(updatePatient.patient)
+            }
     }
 
-    fun findMathing(query: String): List<Patient> {
+    fun findMatching(query: String): List<Patient> {
         TODO("Not yet implemented")
     }
 

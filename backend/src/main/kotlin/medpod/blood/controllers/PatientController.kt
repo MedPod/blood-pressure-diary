@@ -22,7 +22,7 @@ class PatientController(
     @GetMapping
     fun find(
         @RequestParam("query") query: String,
-    ): PatientsResponse = PatientsResponse(patientsService.findMathing(query))
+    ): PatientsResponse = PatientsResponse(patientsService.findMatching(query))
 
     @PostMapping("/update-info")
     fun update(
