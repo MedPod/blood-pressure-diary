@@ -6,10 +6,7 @@
 
 ### Получить/обновить информацию по пользователю
 
-GET /api/v1/patients/me?snils={snils} \
-GET /api/v1/patients?snils={snils} \
-POST /api/v1/patients/update-info
-
+patient type:
 ```json
 {
   "id": "1",
@@ -26,6 +23,32 @@ POST /api/v1/patients/update-info
   "weight": 89
 }
 ```
+
+GET /api/v1/patients/me?snils={snils}
+```json
+{
+  //{{patient-type}}
+}
+```
+
+GET /api/v1/patients?snils={snils} 
+```json
+{
+  "patients": [
+     // {{patient-type}}
+  ]
+}
+```
+
+POST /api/v1/patients/update-info
+```json
+{
+  "patient": {
+    //{{patient-type}} 
+  }
+}
+```
+
 
 ### Добавить измерение
 
