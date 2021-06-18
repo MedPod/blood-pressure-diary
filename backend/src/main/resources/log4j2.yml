@@ -1,0 +1,15 @@
+Configuration:
+  status: warn
+
+  appenders:
+    Console:
+      name: LogToConsole
+      PatternLayout:
+        Pattern: "%clr{%d{HH:mm:ss.SSS}}{faint} %clr{%5p} %clr{[%15.15t,%X{traceId:-},%X{spanId:-}]}{faint} %clr{%-40.40c{1.}}{cyan} %clr{:}{faint} %clr{%markerSimpleName}{magenta} %m%n%xwEx"
+        charset: UTF-8
+
+  Loggers:
+    Root:
+      level: info
+      AppenderRef:
+        - ref: LogToConsole

@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: blood-pressure-diary-backend
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - info
+          - health
+          - loggers
+          - prometheus
+  metrics:
+    tags:
+      application: \${spring.application.name}
+
+DOMAIN: "localhost"
