@@ -24,6 +24,13 @@ patient type:
 }
 ```
 
+POST /api/v1/patients/register
+```json
+{
+  "snils": "111-222-333"
+}
+```
+
 GET /api/v1/patients/me?snils={snils}
 ```json
 {

@@ -1,6 +1,7 @@
 package medpod.blood.service
 
 import medpod.blood.controllers.model.PatientsResponse
+import medpod.blood.controllers.model.RegisterPatientCommand
 import medpod.blood.controllers.model.UpdatePatientCommand
 import medpod.blood.model.Patient
 import org.springframework.stereotype.Service
@@ -17,6 +18,10 @@ class PatientsService {
     }
 
     fun findMathing(query: String): List<Patient> {
+        TODO("Not yet implemented")
+    }
+
+    fun register(registerPatientCommand: RegisterPatientCommand): String {
         TODO("Not yet implemented")
     }
 

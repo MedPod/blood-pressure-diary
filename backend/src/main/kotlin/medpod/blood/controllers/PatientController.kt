@@ -1,6 +1,8 @@
 package medpod.blood.controllers
 
 import medpod.blood.controllers.model.PatientsResponse
+import medpod.blood.controllers.model.RegisterPatientCommand
+import medpod.blood.controllers.model.RegisterPatientResponse
 import medpod.blood.controllers.model.UpdatePatientCommand
 import medpod.blood.model.Patient
 import medpod.blood.service.PatientsService
@@ -25,7 +27,10 @@ class PatientController(
     @PostMapping("/update-info")
     fun update(
         @Valid @RequestBody updatePatient: UpdatePatientCommand
-    ){
-        patientsService.update(updatePatient)
-    }
+    ) = patientsService.update(updatePatient)
+
+    @PostMapping("/register")
+    fun update(
+        @Valid @RequestBody registerPatientCommand: RegisterPatientCommand
+    ): RegisterPatientResponse = RegisterPatientResponse(patientsService.register(registerPatientCommand))
 }
