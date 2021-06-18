@@ -3,10 +3,13 @@ plugins {
     kotlin("jvm")
     kotlin("kapt")
 
+    id("application")
     id("io.spring.dependency-management") version "1.0.10.RELEASE"
     id("org.springframework.boot") version "2.3.10.RELEASE"
+    id("com.google.cloud.tools.jib")
     kotlin("plugin.spring") version "1.4.32"
 }
+
 
 apply(plugin = "java")
 apply(plugin = "kotlin")
@@ -23,6 +26,12 @@ version = "1.0-SNAPSHOT"
 repositories {
     mavenCentral()
     jcenter()
+}
+
+jib {
+    from.image = "openjdk:15-alpine"
+    to.image = "medpod/optimal-blood-pressure-backend"
+    jib.container.creationTime = "USE_CURRENT_TIMESTAMP"
 }
 
 dependencies {

@@ -1,5 +1,6 @@
 plugins {
     kotlin("jvm") version "1.4.32"
+    id("com.google.cloud.tools.jib") version "3.1.1" apply false
 }
 
 allprojects {
