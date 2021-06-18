@@ -4,7 +4,7 @@ plugins {
 
 allprojects {
 
-    group = "med.pod0"
+    group = "med.pod"
 
     repositories {
         mavenCentral()
