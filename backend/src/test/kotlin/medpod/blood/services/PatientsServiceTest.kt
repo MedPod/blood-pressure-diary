@@ -1,4 +1,4 @@
-package medpod.blood.repositories
+package medpod.blood.services
 
 import medpod.blood.AbstractSpringBootIT
 import medpod.blood.controllers.model.RegisterPatientCommand

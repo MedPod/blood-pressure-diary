@@ -1,4 +1,7 @@
 spring:
+  data:
+    mongodb:
+      database: "blood-pressure-diary"
   application:
     name: blood-pressure-diary-backend
   jackson:
