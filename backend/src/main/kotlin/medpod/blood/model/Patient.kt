@@ -1,17 +1,22 @@
 package medpod.blood.model
 
+import org.springframework.data.annotation.Id
+import org.springframework.data.mongodb.core.index.Indexed
 import org.springframework.format.annotation.DateTimeFormat
 import java.time.LocalDate
 
 data class Patient(
-    val id: String,
-    val optimalBloodPressure: BloodPressure?,
-    val sex: Sex?,
+    @Indexed(unique = true)
+    val snils: String,
+    @Id
+    val id: String? = null,
+    val optimalBloodPressure: BloodPressure? = null,
+    val sex: Sex? = null,
     @DateTimeFormat(style = DATE_FORMAT)
-    val birthDate: LocalDate?,
-    val name: String?,
-    val lastName: String?,
-    val middleName: String?,
-    val height: Int?,
-    val weight: Int?
+    val birthDate: LocalDate? = null,
+    val name: String? = null,
+    val lastName: String? = null,
+    val middleName: String? = null,
+    val height: Int? = null,
+    val weight: Int? = null
 )
