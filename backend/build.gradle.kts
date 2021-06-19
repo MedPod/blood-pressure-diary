@@ -56,9 +56,6 @@ dependencies {
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml")
     implementation("org.springframework.boot:spring-boot-starter-log4j2")
 
-    //Security
-    implementation("com.google.firebase:firebase-admin:6.13.0")
-
     //Testing
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
