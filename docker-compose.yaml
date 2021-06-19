@@ -1,0 +1,14 @@
+version: "3.9"
+services:
+  backend:
+    image: "medpod/optimal-blood-pressure-backend:latest"
+    environment:
+      - SPRING_DATA_MONGODB_HOST=mongo
+    ports:
+      - "8080:8080"
+    links:
+      - mongo
+    depends_on:
+      - mongo
+  mongo:
+    image: "mongo:4.0.25-xenial"

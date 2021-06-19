@@ -10,6 +10,11 @@ A: Запустить команду. Локально должен быть у�
  docker run -d -p 27017:27017 mongo:4.0.25-xenial
  docker run --network "host" medpod/optimal-blood-pressure-backend:latest 
 ```
+ИЛИ с использованием docker-compose
+```bash
+docker-compose up
+```
+
 После этого бэк будет доступен по http://localhost:8080/
 
 Q: Как сбилдить локально бэк самому?
