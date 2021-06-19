@@ -7,6 +7,7 @@
 Q: Как поднять локально бэк?
 A: Запустить команду. Локально должен быть установлен докер
 ```bash
+ docker rmi -f medpod/optimal-blood-pressure-backend
  docker run -d -p 27017:27017 mongo:4.0.25-xenial
  docker run --network "host" medpod/optimal-blood-pressure-backend:latest 
 ```

@@ -1,5 +1,3 @@
 package medpod.blood.controllers.model
 
-class RegisterPatientResponse(id: String) {
-
-}
+data class RegisterPatientResponse(val id: String)

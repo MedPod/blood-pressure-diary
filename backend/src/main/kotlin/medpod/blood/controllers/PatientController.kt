@@ -30,7 +30,7 @@ class PatientController(
     ) = patientsService.update(updatePatient)
 
     @PostMapping("/register")
-    fun update(
+    fun register(
         @Valid @RequestBody registerPatientCommand: RegisterPatientCommand
     ): RegisterPatientResponse = RegisterPatientResponse(patientsService.register(registerPatientCommand))
 }
