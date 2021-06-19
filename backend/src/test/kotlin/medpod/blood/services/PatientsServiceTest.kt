@@ -1,7 +1,9 @@
 package medpod.blood.services
 
+import com.mongodb.DuplicateKeyException
 import medpod.blood.AbstractSpringBootIT
 import medpod.blood.controllers.model.RegisterPatientCommand
+import medpod.blood.exceptions.BusinessException
 import medpod.blood.exceptions.NotFoundException
 import medpod.blood.repositories.DiaryRepository
 import medpod.blood.service.PatientsService
@@ -58,6 +60,16 @@ internal class PatientsServiceTest : AbstractSpringBootIT() {
         //expect:
         assertThatThrownBy { (patientsService.findById("another-$id")) }
             .isInstanceOf(NotFoundException::class.java)
+    }
+
+    @Test
+    internal fun `should not allow to create with same snils twice`() {
+        //given:
+        register(SOME_CORRECT_SNILS)
+
+        //expect:
+        assertThatThrownBy { register(SOME_CORRECT_SNILS) }
+            .isInstanceOf(BusinessException::class.java)
     }
 
     private fun register(snils: String) = patientsService.register(RegisterPatientCommand(snils))

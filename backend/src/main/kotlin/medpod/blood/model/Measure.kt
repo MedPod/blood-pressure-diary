@@ -7,10 +7,10 @@ import javax.validation.constraints.NotNull
 import javax.validation.constraints.Positive
 
 data class Measure(
-    @DateTimeFormat(
+    @field:DateTimeFormat(
         style = DATE_TIME_FORMAT
     )
-    @Indexed
+    @field:Indexed
     val timestamp: LocalDateTime,
     @Positive
     @NotNull

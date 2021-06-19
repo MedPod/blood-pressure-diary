@@ -2,6 +2,7 @@ spring:
   data:
     mongodb:
       database: "blood-pressure-diary"
+      auto-index-creation: on
   application:
     name: blood-pressure-diary-backend
   jackson:
