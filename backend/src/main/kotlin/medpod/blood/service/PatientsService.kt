@@ -2,6 +2,7 @@ package medpod.blood.service
 
 import medpod.blood.controllers.model.RegisterPatientCommand
 import medpod.blood.controllers.model.UpdatePatientCommand
+import medpod.blood.exceptions.BusinessException
 import medpod.blood.exceptions.NotFoundException
 import medpod.blood.exceptions.PatientNotFoundException
 import medpod.blood.model.Patient
@@ -16,6 +17,9 @@ class PatientsService(
 ) {
 
     fun register(registerPatientCommand: RegisterPatientCommand): String {
+        if (patientRepository.findBySnils(registerPatientCommand.snils) != null){
+            throw BusinessException("Пользователь с таким СНИЛС уже зарегистрирован", "user_exists")
+        }
         val patientId = patientRepository.insert(Patient(registerPatientCommand.snils)).id!!
         diaryService.initDiary(patientId)
         return patientId
