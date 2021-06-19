@@ -11,3 +11,4 @@ pluginManagement {
         google()
     }
 }
+include(":medpod")

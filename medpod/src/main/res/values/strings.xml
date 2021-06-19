@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">MedPod</string>
+    <string name="login">Авторизация</string>
+    <string name="snills_id">СНИЛС</string>
+    <string name="enter_the_snills">Введите снилс</string>
+    <string name="snills_not_valid">Забыли снилс?</string>
+    <string name="measure_stress">MedPod - Измерь давление</string>
+</resources>
