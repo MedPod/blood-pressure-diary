@@ -11,11 +11,15 @@ import org.springframework.stereotype.Service
 
 @Service
 class PatientsService(
-    private val patientRepository: PatientRepository
+    private val patientRepository: PatientRepository,
+    private val diaryService: DiaryService
 ) {
 
-    fun register(registerPatientCommand: RegisterPatientCommand): String =
-        patientRepository.save(Patient(registerPatientCommand.snils)).id!!
+    fun register(registerPatientCommand: RegisterPatientCommand): String {
+        val patientId = patientRepository.insert(Patient(registerPatientCommand.snils)).id!!
+        diaryService.initDiary(patientId)
+        return patientId
+    }
 
     fun findBySnils(snils: String): Patient =
         patientRepository.findBySnils(snils)

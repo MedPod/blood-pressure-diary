@@ -3,6 +3,7 @@ package medpod.blood.services
 import medpod.blood.AbstractSpringBootIT
 import medpod.blood.controllers.model.RegisterPatientCommand
 import medpod.blood.exceptions.NotFoundException
+import medpod.blood.repositories.DiaryRepository
 import medpod.blood.service.PatientsService
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
@@ -16,6 +17,9 @@ internal class PatientsServiceTest : AbstractSpringBootIT() {
     @Autowired
     lateinit var patientsService: PatientsService
 
+    @Autowired
+    lateinit var diaryRepository: DiaryRepository
+
     @Test
     internal fun `should register by snils`() {
         //when:
@@ -24,6 +28,16 @@ internal class PatientsServiceTest : AbstractSpringBootIT() {
         //then:
         assertThat(patientsService.findBySnils(SOME_CORRECT_SNILS).id)
             .isEqualTo(id)
+    }
+
+    @Test
+    internal fun `should init diary`() {
+        //when:
+        val id = register(SOME_CORRECT_SNILS)
+
+        //then:
+        assertThat(diaryRepository.findById(id))
+            .isNotNull
     }
 
     @Test

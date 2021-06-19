@@ -1,19 +1,30 @@
 package medpod.blood.service
 
 import medpod.blood.controllers.model.AddMeasurementCommand
-import medpod.blood.controllers.model.DiaryMeasurementsResponse
+import medpod.blood.exceptions.NotFoundException
+import medpod.blood.model.Diary
+import medpod.blood.model.Measure
+import medpod.blood.repositories.DiaryRepository
 import org.springframework.stereotype.Service
-import java.time.ZonedDateTime
+import java.time.LocalDateTime
 
 @Service
-class DiaryService {
+class DiaryService(
+    private val diaryRepository: DiaryRepository
+) {
 
-    fun diary(patient: String, from: ZonedDateTime?, to: ZonedDateTime?): DiaryMeasurementsResponse {
-        TODO("Not yet implemented")
+    fun initDiary(patientId: String){
+        diaryRepository.insert(Diary(patientId))
     }
 
-    fun addMeasurement(addMeasurementCommand: AddMeasurementCommand): DiaryMeasurementsResponse {
-        TODO("Not yet implemented")
+    fun diary(patientId: String, from: LocalDateTime, to: LocalDateTime): List<Measure> {
+        return diaryRepository.findMeasurements(patientId, from, to)
+            ?.measures
+            ?:throw NotFoundException("Дневник не найден")
+    }
+
+    fun addMeasurement(addMeasurementCommand: AddMeasurementCommand) {
+        diaryRepository.addMeasurement(addMeasurementCommand.patientId, addMeasurementCommand.measure)
     }
 
 }
