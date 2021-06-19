@@ -19,8 +19,6 @@ class DiaryService(
 
     fun diary(patientId: String, from: LocalDateTime, to: LocalDateTime): List<Measure> {
         return diaryRepository.findMeasurements(patientId, from, to)
-            ?.measures
-            ?:throw NotFoundException("Дневник не найден")
     }
 
     fun addMeasurement(addMeasurementCommand: AddMeasurementCommand) {

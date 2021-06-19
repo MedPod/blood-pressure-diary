@@ -3,6 +3,8 @@ package medpod.blood.repositories
 import medpod.blood.model.Diary
 import medpod.blood.model.Measure
 import org.springframework.data.mongodb.core.MongoTemplate
+import org.springframework.data.mongodb.core.aggregation.Aggregation
+import org.springframework.data.mongodb.core.aggregation.Aggregation.*
 import org.springframework.data.mongodb.core.query.*
 import java.time.LocalDateTime
 
@@ -13,7 +15,7 @@ interface MeasurementCustomRepository {
         measure: Measure
     )
 
-    fun findMeasurements(patientId: String, from: LocalDateTime, to: LocalDateTime): Diary?
+    fun findMeasurements(patientId: String, from: LocalDateTime, to: LocalDateTime): List<Measure>
 }
 
 class MeasurementCustomRepositoryImpl(
@@ -28,14 +30,23 @@ class MeasurementCustomRepositoryImpl(
         )
     }
 
-    override fun findMeasurements(patientId: String, from: LocalDateTime, to: LocalDateTime): Diary? {
-        val criteria = Criteria
-            .where(Diary::patientId.name).isEqualTo(patientId)
-            .and(Diary::measures.name)
-            .elemMatch(Criteria(Measure::timestamp.name).gte(from).lte(to))
-        return mongoTemplate.find(Query.query(criteria), Diary::class.java)
-            .firstOrNull()
-
+    override fun findMeasurements(patientId: String, from: LocalDateTime, to: LocalDateTime): List<Measure> {
+        val aggregation: Aggregation = newAggregation(
+            match(
+                Criteria.where(Diary::patientId.name).isEqualTo(patientId)
+            ),
+            unwind("measures"),
+            project("measures"),
+            replaceRoot("measures"),
+            match(
+                Criteria.where("timestamp").gte(from).lte(to)
+            )
+        )
+        return mongoTemplate.aggregate(
+            aggregation,
+            Diary::class.java,
+            Measure::class.java
+        ).mappedResults
     }
 
 }

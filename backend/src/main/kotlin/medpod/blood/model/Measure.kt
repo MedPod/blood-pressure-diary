@@ -1,5 +1,6 @@
 package medpod.blood.model
 
+import org.springframework.data.mongodb.core.index.Indexed
 import org.springframework.format.annotation.DateTimeFormat
 import java.time.LocalDateTime
 import javax.validation.constraints.NotNull
@@ -9,6 +10,7 @@ data class Measure(
     @DateTimeFormat(
         style = DATE_TIME_FORMAT
     )
+    @Indexed
     val timestamp: LocalDateTime,
     @Positive
     @NotNull
