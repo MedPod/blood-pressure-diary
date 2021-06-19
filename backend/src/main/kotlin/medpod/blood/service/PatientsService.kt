@@ -37,7 +37,7 @@ class PatientsService(
     }
 
     fun findMatching(query: String): List<Patient> {
-        TODO("Not yet implemented")
+        return patientRepository.findAllMatchingSnilsStartsFrom(query)
     }
 
 }
