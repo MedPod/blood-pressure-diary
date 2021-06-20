@@ -100,6 +100,8 @@ class MeasureArterialFragment: Fragment() {
 
                 binding.editSystolic.text = null
                 binding.checkTakeMedication.isChecked = false
+                binding.editPulse.text = null
+                binding.editDiastolic.text = null
         } catch (ex: Exception){
             Toast.makeText(
                 context,

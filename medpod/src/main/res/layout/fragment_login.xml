@@ -28,12 +28,11 @@
             android:id="@+id/text_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="160dp"
-            android:layout_marginLeft="160dp"
             android:layout_marginTop="44dp"
             android:text="@string/login"
             android:textColor="@color/soft_blue"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -62,6 +61,8 @@
             android:paddingStart="10dp"
             android:paddingLeft="10dp"
             android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/text_snills_id"
             app:layout_constraintTop_toBottomOf="@+id/text_login" />
 

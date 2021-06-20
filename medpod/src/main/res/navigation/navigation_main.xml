@@ -22,4 +22,10 @@
         android:label="measure_arterial"
         android:name="com.zhukofff.medpod.MeasureArterialFragment"
         tools:layout="@layout/fragment_measure_arterial" />
+
+    <fragment
+        android:id="@+id/navigation_settings"
+        android:label="settings"
+        android:name="com.zhukofff.medpod.SettingsFragment"
+        tools:layout="@layout/fragment_measure_arterial" />
 </navigation>

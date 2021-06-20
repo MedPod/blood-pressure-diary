@@ -30,5 +30,9 @@ class HomeFragment : Fragment() {
         binding.goToMeasure.setOnClickListener {
             controller!!.navigate(R.id.navigation_measure_arterial)
         }
+
+        binding.goToSettings.setOnClickListener{
+            controller!!.navigate(R.id.navigation_settings)
+        }
     }
 }

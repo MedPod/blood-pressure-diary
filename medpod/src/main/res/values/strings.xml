@@ -5,4 +5,5 @@
     <string name="enter_the_snills">Введите снилс</string>
     <string name="snills_not_valid">Забыли снилс?</string>
     <string name="measure_stress">MedPod - Измерь давление</string>
+    <string name="arterial_pressure">Артериальное давление</string>
 </resources>
