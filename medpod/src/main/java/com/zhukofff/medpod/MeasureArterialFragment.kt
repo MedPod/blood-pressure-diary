@@ -9,12 +9,15 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.zhukofff.medpod.databinding.FragmentMeasureArterialBinding
 import java.time.LocalDateTime
 
 class MeasureArterialFragment: Fragment() {
 
     private lateinit var binding: FragmentMeasureArterialBinding
+    private lateinit var viewModel: MeasureArterialViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,6 +32,7 @@ class MeasureArterialFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel = ViewModelProvider(this, defaultViewModelProviderFactory).get(MeasureArterialViewModel::class.java)
         // проверяем принимал ли пользователь лекарства
         var takenMedication = false
         binding.checkTakeMedication.setOnCheckedChangeListener { buttonView, isChecked ->
@@ -47,43 +51,62 @@ class MeasureArterialFragment: Fragment() {
             // Защита от неккоректных введённых данных
             // Систолическое давление 90 - 135 мм ртутного столба
             // Диастоилческое давление 50 - 90 мм ртутного столба
-            if (SystolicPressure.toInt() < 70 || SystolicPressure.toInt() > 250) {
-                Toast.makeText(
-                    context,
-                    "Систолическое давление введено некорректно!",
-                    Toast.LENGTH_SHORT
-                ).show()
-            } else if (DiastolicPressure.toInt() < 35 || DiastolicPressure.toInt() > 150) {
-                Toast.makeText(
-                    context,
-                    "Диастолическое давление введено некорректно!",
-                    Toast.LENGTH_SHORT
-                ).show()
-            } else {
-                // дата измерения
-                var currentDate = LocalDateTime.now().toString()
-
-                // предупреждение -- давление выше 180/120 мм рт.
-                // измерения всё также желательно сохранить, но
-                // будет выведено предупреждащее сообщение
-
-                if (SystolicPressure.toInt() > 179 || DiastolicPressure.toInt() > 119) {
-                    val AlertToast = Toast.makeText(
+            try {
+                if (SystolicPressure.toInt() < 70 || SystolicPressure.toInt() > 250) {
+                    Toast.makeText(
                         context,
-                        "ВАШЕ ДАВЛЕНИЕ ОЧЕНЬ ВЫСОКОЕ! ОБРАТИТЕСЬ В ГОСПИТАЛЬ",
-                        Toast.LENGTH_LONG
-                    )
-                    val view: View = AlertToast.view as View
-                    view.setBackgroundColor(Color.parseColor("#FF0000"))
-                    AlertToast.show()
+                        "Систолическое давление введено некорректно!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else if (DiastolicPressure.toInt() < 35 || DiastolicPressure.toInt() > 150) {
+                    Toast.makeText(
+                        context,
+                        "Диастолическое давление введено некорректно!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    // дата измерения
+                    var currentDate = LocalDateTime.now().toString()
+
+                    // предупреждение -- давление выше 180/120 мм рт.
+                    // измерения всё также желательно сохранить, но
+                    // будет выведено предупреждащее сообщение
+
+                    if (SystolicPressure.toInt() > 179 || DiastolicPressure.toInt() > 119) {
+                        val AlertToast = Toast.makeText(
+                            context,
+                            "ВАШЕ ДАВЛЕНИЕ ОЧЕНЬ ВЫСОКОЕ! ОБРАТИТЕСЬ В ГОСПИТАЛЬ",
+                            Toast.LENGTH_LONG
+                        )
+                        val view: View = AlertToast.view as View
+                        view.setBackgroundColor(Color.parseColor("#FF0000"))
+                        AlertToast.show()
+                    }
                 }
-            }
 
-            // обновляем элементы в фрагменте
-            binding.editDiastolic.text = null
-            binding.editSystolic.text = null
-            binding.checkTakeMedication.isChecked = false
 
+                viewModel.sendMeasurements(SystolicPressure,
+                    DiastolicPressure)!!.observe(
+                    viewLifecycleOwner,
+                        Observer { measurement ->
+                            val msg = measurement?.quiz?.comment
+                            Toast.makeText(
+                                context,
+                                msg,
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        })
+                // обновляем элементы в фрагменте
+
+                binding.editSystolic.text = null
+                binding.checkTakeMedication.isChecked = false
+        } catch (ex: Exception){
+            Toast.makeText(
+                context,
+                "Введите значения пожалуйста",
+                Toast.LENGTH_LONG
+            ).show()
+        }
         }
     }
 }
