@@ -32,7 +32,7 @@ interface MedPodAPI {
     fun addSnils(@Body snils: String): Call<String>
 
     @POST("/diary/measurements/add")
-    fun addMeasurements(@Body measurement: Measurement) : Call<Measurement>
+    fun addMeasurements(@Body patientId: String, @Body measurement: Measurement) : Call<Measurement>
 
 
 }

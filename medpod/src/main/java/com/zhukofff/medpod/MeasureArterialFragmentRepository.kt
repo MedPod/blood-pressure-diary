@@ -12,7 +12,7 @@ object MeasureArterialFragmentRepository {
     var medpodApiClient = MedPodApiClient()
 
     fun sendMeasurementApiCall(measurement_: Measurement): MutableLiveData<Measurement?> {
-        val call = medpodApiClient.medpodApi.addMeasurements(measurement_)
+        val call = medpodApiClient.medpodApi.addMeasurements("1", measurement_)
 
         call.enqueue(object: Callback<Measurement> {
 

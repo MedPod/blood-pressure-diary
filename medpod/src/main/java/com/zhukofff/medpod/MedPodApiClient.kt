@@ -23,7 +23,7 @@ class MedPodApiClient @JvmOverloads constructor(baseEndpoint: String = BASE_ENDP
     }
 
     fun addMeasurement(measurement: Measurement): Either<MedPodApiClientError, Measurement> = try {
-        val response = medpodApi.addMeasurements(measurement).execute()
+        val response = medpodApi.addMeasurements("1", measurement).execute()
         inspectResponceForErrors(response)
     } catch (e: IOException) {
         Either.left(NetworkError)
