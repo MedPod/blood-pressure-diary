@@ -12,3 +12,14 @@ services:
       - mongo
   mongo:
     image: "mongo:4.0.25-xenial"
+
+  web:
+    image: "medpod/web:latest"
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./web:/src
+    build:
+      context: ./web
+      dockerfile: web.dockerfile
+    command: /bin/sh -c "quasar dev"
